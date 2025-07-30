@@ -1,50 +1,50 @@
-function [U,M_cr] = calculate_column_reduced_form(M)
+function [U,M_rr] = calculate_row_reduced_form(M)
     
 % Riduzione per colonne di una matrice polinomiale M
     syms s
-    if rank(M) ~= size(M, 2)
-        error('The input matrix must have full column rank');
+    if rank(M) ~= size(M, 1)
+        error('The input matrix must have full row rank');
     end
     % ---- 1. leading-column matrix --------------------------------------
-    leading_M = calculate_leading_col_matrix(M);
-    U = sym(eye(size(M,2))); 
+    leading_M = calculate_leading_row_matrix(M);
+    U = sym(eye(size(M,1))); 
     % se il rango è già pieno → forma ridotta
-    if rank(leading_M) == size(M,2)
-        M_cr = M;
+    if rank(leading_M) == size(M,1)
+        M_rr = M;
         return
     end
 
     % ---- 2. vettore di dipendenza   M_hc * a_tilde = 0 ------------------
-    K = null(leading_M);            % base del nucleo
+    K = null(leading_M');            % base del nucleo
     % Prendiamo il primo vettore della base
-    a_tilde =  K(:,1);
-    k_j = -inf;   j_col = -1;
+    a_tilde =  K(:,1)';
+    k_j = -inf;   j_row = -1;
     for i = 1:length(a_tilde)
         if a_tilde(i) ~= 0
-            deg_i = calculate_vector_degree(M(:,i)); 
+            deg_i = calculate_vector_degree(M(i,:)); 
             if deg_i > k_j
                 k_j   = deg_i;
-                j_col = i;
+                j_row = i;
             end
         end
     end
 
     % ---- 4. costruisci il vettore polinomiale a(z) ----------------------
-    a = sym(zeros(size(M,2),1));
+    a = sym(zeros(size(M,1),1));
     for i = 1:length(a)
         exp_shift = k_j - calculate_vector_degree(M(:,i));
         a(i) = a_tilde(i) * s^exp_shift;              % esp_shift >= 0
     end
     % ---- 5. matrice unimodulare elementare U ---------------------------
             % identità
-    U(:, j_col) = a;                 % sostituisci la colonna j
+    U(j_row, :) = a';                 % sostituisci la colonna j
     % ---- 6. aggiorna la matrice ----------------------------------------
-    M_bar = (M * U);           
-    leading_bar = calculate_leading_col_matrix(M_bar);
+    M_bar = (U * M);           
+    leading_bar = calculate_leading_row_matrix(M_bar);
     % ---- 7. test di arresto / ricorsione -------------------------------
-    if rank(leading_bar) == size(M,2)
-        M_cr = M_bar;
+    if rank(leading_bar) == size(M,1)
+        M_rr = M_bar;
     else
-        M_cr = calculate_column_reduced_form(M_bar);
+        M_rr = calculate_row_reduced_form(M_bar);
     end
 end
