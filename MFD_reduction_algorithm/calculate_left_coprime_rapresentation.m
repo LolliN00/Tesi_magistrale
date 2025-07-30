@@ -1,3 +1,4 @@
+
 function [D_cop, N_cop,G] = calculate_left_coprime_rapresentation(D_r, N_r)
 % Calculates a left coprime factorization (D_cop^-1 * N_cop)
 % from a given right coprime factorization (N_r * D_r^-1).
@@ -16,6 +17,7 @@ function [D_cop, N_cop,G] = calculate_left_coprime_rapresentation(D_r, N_r)
     % 'U' is the unimodular transformation matrix such that U*[D_r; N_r] = herm.
     [U, ~] = hermiteForm(impiled_matrix);
 
+
     % From the bottom block-row of the equation U * [D_r; N_r] = [H; 0],
     % we get the Bezout identity: U21*D_r + U22*N_r = 0.
     % This implies N_r*D_r^-1 = -inv(U22)*U21, which defines the left factorization.
@@ -30,4 +32,5 @@ function [D_cop, N_cop,G] = calculate_left_coprime_rapresentation(D_r, N_r)
     D_cop = -U_22;
     N_cop = U_21;
     G = D_cop\N_cop;
+
 end

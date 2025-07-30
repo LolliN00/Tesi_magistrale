@@ -20,7 +20,6 @@ function [U, M_rr] = calculate_row_reduced_form(M)
     % --- STOPPING CONDITION ---
     % If the leading matrix has full rank, M is already row-reduced.
     if rank(leading_M) == size(M, 1)
-        disp('The matrix is already in row-reduced form. No transformation needed.');
         M_rr = M;
         return
     end
@@ -75,4 +74,6 @@ function [U, M_rr] = calculate_row_reduced_form(M)
         % The final transformation U is the cumulative product of U's from each step.
         U = U_rec * U;
     end
+
 end
+

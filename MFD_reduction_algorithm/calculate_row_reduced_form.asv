@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:MFD_reduction_algorithm/calculate_row_reduced_form.asv
 function [U,M_rr] = calculate_row_reduced_form(M)
+========
+function [U,M_cr] = calculate_column_reduced_form(M)
+>>>>>>>> 586784b4bb8cae52d76ba163bc85206297155d0d:MFD_reduction_algorithm/calculate_column_reduced_form.m
     
 % Riduzione per colonne di una matrice polinomiale M
     syms s
@@ -6,8 +10,13 @@ function [U,M_rr] = calculate_row_reduced_form(M)
         error('The input matrix must have full row rank');
     end
     % ---- 1. leading-column matrix --------------------------------------
+<<<<<<<< HEAD:MFD_reduction_algorithm/calculate_row_reduced_form.asv
     leading_M = calculate_leading_row_matrix(M);
     U = sym(eye(size(M,1))); 
+========
+    leading_M = calculate_leading_col_matrix(M);
+    U = sym(eye(size(M,2))); 
+>>>>>>>> 586784b4bb8cae52d76ba163bc85206297155d0d:MFD_reduction_algorithm/calculate_column_reduced_form.m
     % se il rango è già pieno → forma ridotta
     if rank(leading_M) == size(M,1)
         M_rr = M;
@@ -37,7 +46,11 @@ function [U,M_rr] = calculate_row_reduced_form(M)
     end
     % ---- 5. matrice unimodulare elementare U ---------------------------
             % identità
+<<<<<<<< HEAD:MFD_reduction_algorithm/calculate_row_reduced_form.asv
     U(j_row, :) = a';                 % sostituisci la colonna j
+========
+    U(:, j_col) = a;                 % sostituisci la colonna j
+>>>>>>>> 586784b4bb8cae52d76ba163bc85206297155d0d:MFD_reduction_algorithm/calculate_column_reduced_form.m
     % ---- 6. aggiorna la matrice ----------------------------------------
     M_bar = (U * M);           
     leading_bar = calculate_leading_row_matrix(M_bar);
