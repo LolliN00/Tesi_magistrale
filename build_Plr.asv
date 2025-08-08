@@ -1,0 +1,8 @@
+function P_lr = build_Plr(R,l)
+R = D_l-S*P_hr;
+for i = l
+    for j = i:-1:0
+        
+    end
+end
+
