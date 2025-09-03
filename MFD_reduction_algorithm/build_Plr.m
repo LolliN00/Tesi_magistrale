@@ -1,6 +1,9 @@
-function P_lr = build_Plr(R, l)
+function P_lr = build_Plr(D, l)
     % Calcola P_lr dal residuo R e dai gradi di riga l
     syms s
+    S = build_S_matrix(D,l);
+    P_hr = calculate_leading_row_matrix(D);
+    R = D-S*P_hr;
     [m_rows, n_cols] = size(R);
     total_rows = sum(l);
     P_lr = sym(zeros(total_rows, n_cols));

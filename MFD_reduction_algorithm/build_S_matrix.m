@@ -1,4 +1,4 @@
-function S = build_S_matrix(l)
+function S = build_S_matrix(D_l,l)
     syms s;
     S = sym(zeros(size(D_l,1)));
     for i = 1:length(l)

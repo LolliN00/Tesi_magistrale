@@ -1,0 +1,21 @@
+function Q_lr = build_Qlr(Q,Gamma,l)
+% Q_lr such that Q(s) = Gamma(s)*Q_lr, con Gamma costruita da l
+% Q: matrice polinomiale p×m (sym), l: [l1 ... lp]
+    syms s
+    [p, m] = size(Q);
+    assert(numel(l)==p, 'l deve avere p elementi (una per riga di Q).')
+
+    Rtot = sum(l);
+    Q_lr = sym(zeros(Rtot, m));
+
+    r = 1;
+    for i = 1:p
+        % righe generate dalla riga i: gradi li-1, li-2, ..., 0
+        for deg = l(i)-1 : -1 : 0
+            for j = 1:m
+                Q_lr(r, j) = feval(symengine, 'coeff', Q(i,j), s, deg);
+            end
+            r = r + 1;
+        end
+    end
+end
