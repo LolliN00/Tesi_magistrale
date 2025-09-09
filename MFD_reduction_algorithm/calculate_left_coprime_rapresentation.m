@@ -1,7 +1,21 @@
 
 function [D_cop, N_cop,G] = calculate_left_coprime_rapresentation(D_r, N_r)
-% Calculates a left coprime factorization (D_cop^-1 * N_cop)
-% from a given right coprime factorization (N_r * D_r^-1).
+% CALCULATE_LEFT_COPRIME_RAPRESENTATION Converts right to left coprime factorization.
+%
+% INPUTS:
+%   D_r - Right denominator polynomial matrix (m x m, symbolic)
+%   N_r - Right numerator polynomial matrix (p x m, symbolic)
+%
+% OUTPUTS:
+%   D_cop - Left denominator polynomial matrix (p x p, symbolic)
+%   N_cop - Left numerator polynomial matrix (p x m, symbolic)
+%   G     - Transfer function matrix G = D_cop^(-1) * N_cop = N_r * D_r^(-1)
+%
+% DESCRIPTION:
+%   This function converts a right coprime factorization G = N_r * D_r^(-1) to
+%   a left coprime factorization G = D_cop^(-1) * N_cop. The conversion is
+%   performed using the Hermite normal form of the stacked matrix [D_r; N_r]
+%   and extracting the appropriate blocks from the unimodular transformation.
 
     % Define the symbolic variable for polynomials.
     syms s;

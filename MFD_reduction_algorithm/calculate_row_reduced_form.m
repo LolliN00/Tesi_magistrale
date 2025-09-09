@@ -1,7 +1,19 @@
 
 function [U, M_rr] = calculate_row_reduced_form(M)
-% Computes the row-reduced form of a polynomial matrix M.
-% Returns the total unimodular transformation U and the row-reduced matrix M_rr.
+% CALCULATE_ROW_REDUCED_FORM Computes row-reduced form of polynomial matrix.
+%
+% INPUTS:
+%   M - Polynomial matrix (symbolic) with full row rank
+%
+% OUTPUTS:
+%   U    - Total unimodular transformation matrix such that M_rr = U * M
+%   M_rr - Row-reduced form of M (leading coefficient matrix has full rank)
+%
+% DESCRIPTION:
+%   This function computes the row-reduced form of a polynomial matrix using
+%   a recursive algorithm. A polynomial matrix is row-reduced if its row-leading
+%   coefficient matrix has full rank. The algorithm applies elementary unimodular
+%   transformations to reduce the matrix while maintaining equivalence.
 
     % Define the symbolic variable for the polynomials.
     syms s
