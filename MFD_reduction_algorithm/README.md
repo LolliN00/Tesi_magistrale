@@ -48,11 +48,6 @@ H = [1/(s+1), s/(s^2+2*s+1); 2/(s+2), 1/(s+3)];
 | `calculate_row_reduced_form()` | Row reduction algorithm |
 | `calculate_left_coprime_representation()` | Coprime factorization |
 
-## Examples
-
-Run these scripts to see the toolbox in action:
-- `getting_started.m` - Basic usage examples
-- `example_mimo_system.m` - Complete MIMO example with verification
 
 ## Requirements
 
