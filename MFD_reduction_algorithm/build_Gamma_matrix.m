@@ -19,7 +19,6 @@ function Gamma = build_Gamma_matrix(l)
 
     for li = l
         % Create row block [s^(li-1) s^(li-2) ... 1]
-        disp(li);
         block = sym(zeros(1, li));
         for k = 1:li
             % Fill block with descending powers of s

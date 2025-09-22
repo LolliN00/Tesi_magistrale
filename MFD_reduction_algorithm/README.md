@@ -51,7 +51,6 @@ H = [1/(s+1), s/(s^2+2*s+1); 2/(s+2), 1/(s+3)];
 
 ## Requirements
 
-- MATLAB R2016a or later
 - Symbolic Math Toolbox
 
 ## Applications
