@@ -18,10 +18,7 @@ function [U, M_rr] = calculate_row_reduced_form(M)
     % Define the symbolic variable for the polynomials.
     syms s
 
-    % Check for full row rank, a prerequisite for the algorithm.
-    if rank(M) ~= size(M, 1)
-        error('The input matrix must have full row rank');
-    end
+    
     
     % Calculate the row-leading coefficient matrix (M_hr).
     leading_M = calculate_leading_row_matrix(M);

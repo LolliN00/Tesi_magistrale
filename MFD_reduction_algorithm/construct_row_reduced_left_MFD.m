@@ -78,8 +78,8 @@ function [D_l, N_l, G] = construct_row_reduced_left_MFD(H)
     % Print D_l, N_l and G before comparison
     
     fprintf('\n=== NUMERATOR, DENOMINATOR AND RESULTING MATRIX OF MFD ===\n\n');
-    fprintf('D_l(s):\n'); disp(D_l);
-    fprintf('N_l(s):\n'); disp(N_l);
+    fprintf('D_l(s):\n'); disp(expand(simplify(D_l)));
+    fprintf('N_l(s):\n'); disp(expand(simplify(N_l)));
     fprintf('G(s) = D_l^{-1} * N_l:\n'); disp(G);
 
     % Compare G and H element-wise (symbolic in s) and print message if identical
