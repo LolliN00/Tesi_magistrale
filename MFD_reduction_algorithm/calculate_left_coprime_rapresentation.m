@@ -29,7 +29,8 @@ function [D_cop, N_cop,G] = calculate_left_coprime_rapresentation(D_r, N_r)
 
     % Compute the Hermite normal form of the stacked matrix.
     % 'U' is the unimodular transformation matrix such that U*[D_r; N_r] = herm.
-    [U, ~] = hermiteForm(impiled_matrix);
+    impiled_matrix = expand(collect(impiled_matrix, s));  
+    [U, ~] = hermiteForm(impiled_matrix, s);
 
 
     % From the bottom block-row of the equation U * [D_r; N_r] = [H; 0],

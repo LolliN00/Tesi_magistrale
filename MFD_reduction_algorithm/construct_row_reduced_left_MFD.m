@@ -24,7 +24,6 @@ function [D_l, N_l, G] = construct_row_reduced_left_MFD(H)
 %     - calculate_left_coprime_rapresentation
 %     - calculate_row_reduced_form
 
-
     if ~isa(H, 'sym')
         error('The input H must be a symbolic matrix (sym).');
     end
@@ -33,21 +32,19 @@ function [D_l, N_l, G] = construct_row_reduced_left_MFD(H)
 
     % Compute the poles polynomial
     pole_poly = calculate_pole_polynomial(H);
+    % Stampa in forma polinomiale
     fprintf('Pole Polynomial P_H(s): ');
-    disp(pole_poly);
-    
+    print_polynomial(pole_poly);
+    % Stampa forma fattorizzata
+    fprintf('Forma fattorizzata: ');
+    print_factorized(pole_poly);
 
-    % Extract and print poles with automatic variable detection
-    
+    % Extract and print poles
     try
-        vars = symvar(pole_poly);
-        if isempty(vars)
-            warning('The poles polynomial does not contain symbolic variables. Skipping root computation.');
-            poles = sym([]);
-        else
-            % Alternatively: poles = solve(pole_poly == 0);
-            poles = solve(pole_poly == 0, vars(1));
-        end
+        % Crea un polinomio simbolico temporaneo per trovare le radici
+        s = sym('s');
+        pole_poly_sym = poly2sym(pole_poly, s);
+        poles = solve(pole_poly_sym == 0, s);
         fprintf('System Poles: ');
         disp(poles.');
     catch ME
@@ -86,3 +83,4 @@ function [D_l, N_l, G] = construct_row_reduced_left_MFD(H)
     compare_symbolic_matrices(simplify(G), simplify(H));
   
 end
+
