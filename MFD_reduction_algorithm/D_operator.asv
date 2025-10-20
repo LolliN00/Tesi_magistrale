@@ -21,19 +21,23 @@ function out = D_operator(Ms, f, t, s)
     % Reshape f to ensure it's a column vector, even if user passed a row vector
     % This prevents dimension mismatch errors in the multiplication logic
     f = reshape(f, [n,1]);
+    
+    % Preallocate output vector for efficiency
+    % Each element will contain one differential equation result
     out = sym(zeros(m,1));
     
     % Process each row of the matrix Ms
     % Each row represents one output equation in the system
     for i = 1:m
         % Initialize accumulator for the i-th output component
-        
+        % We'll build up the result term by term
         acc = sym(0);
         
         % Process each column, which corresponds to one input function
         % This implements the matrix-vector multiplication Ms * f
         for j = 1:n
-            
+            % Extract the (i,j) element and expand it to standard polynomial form
+            % Expanding ensures the polynomial is in a canonical form for processing
             Mij = expand(Ms(i,j));
             
             % Decompose the polynomial into coefficients and monomial terms
@@ -68,7 +72,9 @@ function out = D_operator(Ms, f, t, s)
             % This completes the processing of Ms(i,j) * f(j)
             acc = acc + term;
         end
-       
+        
+        % Store the simplified result for the i-th output equation
+        % Simplification helps reduce algebraic complexity and makes results more readable
         out(i) = simplify(acc);
     end
 end
